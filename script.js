@@ -43,13 +43,14 @@ const preGame = () => {
     const playerNameSection = document.createElement('section');
     for (let index = 0; index < numPlayers; index++) {
         const playerNameInput = document.createElement('input');
+        playerNameInput.className = 'player-name-input';
         playerNameInput.type = 'text';
         playerNameInput.placeholder = `Player ${index + 1} Name`;
         playerNameSection.append(playerNameInput);
     }
 
     playButton.addEventListener('click', () => {
-        game();
+        game(numPlayers);
     });
 
     main.append(inputPlayersLabel, inputPlayers,playerCount, playerNameSection, playButton);
@@ -57,16 +58,26 @@ const preGame = () => {
     document.body.append(main);
 }
 
-
-
-
-
-const game = () => {
-    document.querySelector('main').innerHTML = "";
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
-        
+const addPlayers = (playerNames) => {
+        for (let index = 0; index < playerNames.length; index++) {
+        players.push({
+            id: index,
+            name: playerNames[index].value || `Player ${index + 1}`,
+            turns: 0,
+            totalScore: 0,
+            turnScore: 0,
+        });
     }
+}
+
+const game = (playerCount = 2) => {
+    const playerNames = document.getElementsByClassName('player-name-input');
+    addPlayers(playerNames);
+    document.querySelector('main').innerHTML = "";
+
+
+    console.log(players)
+
 }
 
 
