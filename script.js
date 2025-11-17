@@ -1,7 +1,5 @@
-const players = [
-
-];
-
+const players = [];
+let playerIdTurn = 1;
 let numPlayers = 2;
 
 //Fisher-Yates Shuffle Algorithm
@@ -70,10 +68,57 @@ const addPlayers = (playerNames) => {
     }
 }
 
-const game = (playerCount = 2) => {
+const createGameScoreboard = () => {
+    const scoreboard = document.createElement('section');
+    for (let index = 0; index < players.length; index++) {
+        const playerDiv = document.createElement('div');
+        playerDiv.id = `player-${index}`;
+        const playerName = document.createElement('h2');
+        playerName.textContent = players[index].name;
+        const playerTotalScore = document.createElement('p');
+        playerTotalScore.id = `player-${index}-total-score`;
+        playerTotalScore.textContent = `Total Score: ${players[index].totalScore}`;
+
+        playerDiv.append(playerName, playerTotalScore);
+        scoreboard.append(playerDiv);
+    }
+
+    scoreboard.id = 'scoreboard';
+    const main = document.querySelector('main');
+    main.append(scoreboard);
+}
+
+const createGameUI = () => {
+    const main = document.querySelector('main');
+    const gameSection = document.createElement('section');
+    gameSection.id = 'game-section';
+    
+    const playerTurnH2 = document.createElement('h2');
+    playerTurnH2.textContent = `Player ${players[playerIdTurn].name}'s Turn`;
+    gameSection.append(playerTurnH2);
+
+    const rollButton = document.createElement('button');
+    rollButton.textContent = 'Roll Dice';
+    gameSection.append(rollButton);
+
+    const endTurnButton = document.createElement('button');
+    endTurnButton.textContent = 'End Turn';
+    gameSection.append(endTurnButton);
+
+    
+
+    main.append(gameSection);
+}
+
+const game = () => {
     const playerNames = document.getElementsByClassName('player-name-input');
     addPlayers(playerNames);
     document.querySelector('main').innerHTML = "";
+
+    createGameScoreboard();
+    createGameUI();
+
+
 
 
     console.log(players)

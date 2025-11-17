@@ -1,0 +1,9 @@
+body{
+    background-color: lightblue;
+}
+
+#game-section {
+    width: 100vw;
+    height: 300px;
+    background-color: beige;
+}
