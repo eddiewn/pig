@@ -48,6 +48,8 @@ const preGame = () => {
     }
 
     playButton.addEventListener('click', () => {
+        const playerNames = document.getElementsByClassName('player-name-input');
+        addPlayers(playerNames);
         game(numPlayers);
     });
 
@@ -73,13 +75,19 @@ const createGameScoreboard = () => {
     for (let index = 0; index < players.length; index++) {
         const playerDiv = document.createElement('div');
         playerDiv.id = `player-${index}`;
+
         const playerName = document.createElement('h2');
         playerName.textContent = players[index].name;
+
         const playerTotalScore = document.createElement('p');
         playerTotalScore.id = `player-${index}-total-score`;
         playerTotalScore.textContent = `Total Score: ${players[index].totalScore}`;
 
-        playerDiv.append(playerName, playerTotalScore);
+        const playerTurns = document.createElement('p');
+        playerTurns.id = `player-${index}-turns`;
+        playerTurns.textContent = `Turns Taken: ${players[index].turns}`;
+
+        playerDiv.append(playerName, playerTotalScore, playerTurns);
         scoreboard.append(playerDiv);
     }
 
@@ -182,8 +190,7 @@ const endGame = (winner) => {
 }
 
 const game = () => {
-    const playerNames = document.getElementsByClassName('player-name-input');
-    addPlayers(playerNames);
+
     document.querySelector('main').innerHTML = "";
 
     createGameScoreboard();
