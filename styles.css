@@ -1,5 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 body{
     background-color: lightblue;
+}
+
+#scoreboard{
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 20px 0 10px;
+    border: 2px solid black;
 }
 
 #game-section {
