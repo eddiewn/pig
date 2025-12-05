@@ -96,10 +96,17 @@ const createGameScoreboard = () => {
     main.append(scoreboard);
 }
 
-const createGameUI = () => {
+const createGameUI = (rollResult) => {
     const main = document.querySelector('main');
     const gameSection = document.createElement('section');
     gameSection.id = 'game-section';
+
+        const videoBox = document.createElement('video');
+        videoBox.src = `./dice/IMG_${rollResult}.mp4`;
+        gameSection.append(videoBox);
+        videoBox.play();
+        videoBox.height = 100;
+
     
     const playerTurnH2 = document.createElement('h2');
     playerTurnH2.textContent = `Player ${players[playerTurn].name}'s Turn`;
@@ -117,6 +124,8 @@ const createGameUI = () => {
     rollButton.addEventListener('click', () => {
         const rollResult = roll();
 
+
+
         if (rollResult === 1) {
             players[playerTurn].turnScore = 0;
             players[playerTurn].turns += 1;
@@ -126,15 +135,13 @@ const createGameUI = () => {
             players[playerTurn].turnScore += rollResult;
         }
 
-        game();
+        game(rollResult);
         checkGameState();
     });
 
     const endTurnButton = document.createElement('button');
     endTurnButton.textContent = 'End Turn';
     gameSection.append(endTurnButton);
-
-    
 
     endTurnButton.addEventListener('click', () => {
         players[playerTurn].totalScore += players[playerTurn].turnScore;
@@ -192,12 +199,12 @@ const endGame = (winner) => {
     
 }
 
-const game = () => {
+const game = (rollResult) => {
 
     document.querySelector('main').innerHTML = "";
 
     createGameScoreboard();
-    createGameUI();
+    createGameUI(rollResult);
     console.log(players);
 }
 
