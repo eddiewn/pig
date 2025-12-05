@@ -148,6 +148,7 @@ const createGameUI = () => {
     gameSection.append(endTurnButton);
 
     endTurnButton.addEventListener('click', () => {
+        rollResult = 0;
         players[playerTurn].totalScore += players[playerTurn].turnScore;
         players[playerTurn].turns += 1;
 
@@ -161,6 +162,7 @@ const createGameUI = () => {
 
     terminateGameButton.addEventListener('click', () => {
         if(confirm("Are you sure??")){
+            rollResult = 0;
             players.length = 0;
             playerTurn = 0;
             preGame();
