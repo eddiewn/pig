@@ -116,10 +116,11 @@ const createGameUI = () => {
 
     rollButton.addEventListener('click', () => {
         const rollResult = roll();
-        players[playerTurn].turns += 1;
 
         if (rollResult === 1) {
             players[playerTurn].turnScore = 0;
+            players[playerTurn].turns += 1;
+
             playerTurn = (playerTurn + 1) % players.length;
         } else{
             players[playerTurn].turnScore += rollResult;
@@ -137,6 +138,8 @@ const createGameUI = () => {
 
     endTurnButton.addEventListener('click', () => {
         players[playerTurn].totalScore += players[playerTurn].turnScore;
+        players[playerTurn].turns += 1;
+
         players[playerTurn].turnScore = 0;
         playerTurn = (playerTurn + 1) % players.length;
         game();
