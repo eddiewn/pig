@@ -2,6 +2,8 @@ const players = [];
 let playerTurn = 0;
 let numPlayers = 2;
 
+let rollResult = 0;
+
 //Fisher-Yates Shuffle Algorithm
 function roll() {
     const dice = [1, 2, 3, 4, 5, 6];
@@ -11,7 +13,7 @@ function roll() {
         dice[i] = dice[j];
         dice[j] = k;
     }
-    return dice[0];
+    rollResult = dice[0]
 }
 
 const preGame = () => {
@@ -96,16 +98,18 @@ const createGameScoreboard = () => {
     main.append(scoreboard);
 }
 
-const createGameUI = (rollResult) => {
+const createGameUI = () => {
     const main = document.querySelector('main');
     const gameSection = document.createElement('section');
     gameSection.id = 'game-section';
 
+    if (rollResult !== 0) {        
         const videoBox = document.createElement('video');
         videoBox.src = `./dice/IMG_${rollResult}.mp4`;
-        gameSection.append(videoBox);
         videoBox.play();
         videoBox.height = 100;
+        gameSection.append(videoBox);
+    }        
 
     
     const playerTurnH2 = document.createElement('h2');
@@ -122,7 +126,7 @@ const createGameUI = (rollResult) => {
     gameSection.append(rollButton);
 
     rollButton.addEventListener('click', () => {
-        const rollResult = roll();
+        roll();
 
 
 
@@ -135,7 +139,7 @@ const createGameUI = (rollResult) => {
             players[playerTurn].turnScore += rollResult;
         }
 
-        game(rollResult);
+        game();
         checkGameState();
     });
 
@@ -199,12 +203,12 @@ const endGame = (winner) => {
     
 }
 
-const game = (rollResult) => {
+const game = () => {
 
     document.querySelector('main').innerHTML = "";
 
     createGameScoreboard();
-    createGameUI(rollResult);
+    createGameUI();
     console.log(players);
 }
 
