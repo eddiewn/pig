@@ -19,8 +19,12 @@ function roll() {
 const preGame = () => {
 
     !document.querySelector('main') ? null : document.querySelector('main').remove();
+
     
     const main = document.createElement('main');
+
+    const form = document.createElement('form');
+
     const inputPlayersLabel = document.createElement('label');
     inputPlayersLabel.textContent = "Number of Players: ";
     const inputPlayers = document.createElement('input');
@@ -35,6 +39,7 @@ const preGame = () => {
     });
 
     const playButton = document.createElement('button');
+    playButton.type = "submit"
     playButton.textContent = 'Play';
 
     const playerCount = document.createElement('p');
@@ -55,8 +60,8 @@ const preGame = () => {
         game(numPlayers);
     });
 
-    main.append(inputPlayersLabel, inputPlayers,playerCount, playerNameSection, playButton);
-
+    form.append(inputPlayersLabel, inputPlayers,playerCount, playerNameSection, playButton);
+    main.appendChild(form)
     document.body.append(main);
 }
 
